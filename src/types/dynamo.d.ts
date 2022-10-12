@@ -1,22 +1,30 @@
 interface BoardRecord {
-  id: string,
-  pk: string,
-  sk: string,
+  id: string;
+  pk: string;
+  sk: string;
 
-  ownerId: string,
-  boardName: string,
-  description: string,
-  isPublic: boolean,
-  date: number
+  ownerId: string;
+  boardName: string;
+  description: string;
+  isPublic: boolean;
+  date: number;
 }
 interface IdeaRecord {
-  id: string,
-  pk: string,
-  sk: string,
+  id: string;
+  pk: string;
+  sk: string;
 
-  boardId: string,
-  ideaTitle: string,
-  description?: string,
+  boardId: string;
+  ideaTitle: string;
+  description?: string;
 
-  date: number
+  date: number;
+}
+interface VoteRecord {
+  id: string;
+  pk: string;
+  sk: string;
+
+  userId: string;
+  ideaId: string;
 }
