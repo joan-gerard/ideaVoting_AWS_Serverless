@@ -29,7 +29,22 @@ export const handler = async (event: APIGatewayProxyEvent) => {
       pkKey: 'pk',
     });
 
-    const ideaDataArray = ideas.map(({ pk, sk, boardId, ...ideaData }) => ideaData);
+    const ideaDataPromiseArray = ideas.map(async ({ pk, sk, boardId, ...ideaData }) => {
+      const votes = await dynamo.query<VoteRecord>({
+        tableName,
+        index: 'index1',
+        pkValue: `vote-${ideaData.id}`,
+        pkKey: 'pk',
+      });
+      return {
+        ...ideaData,
+        votes: votes.length,
+      };
+    });
+
+    const ideaDataArray = (await Promise.all(ideaDataPromiseArray)).sort(
+      (a, b) => a.votes - b.votes
+    );
 
     return formatJSONResponse({
       body: {
@@ -37,7 +52,6 @@ export const handler = async (event: APIGatewayProxyEvent) => {
         ideas: ideaDataArray,
       },
     });
-    
   } catch (error) {
     return formatJSONResponse({ statusCode: 500, body: error.message });
   }
