@@ -22,9 +22,22 @@ export const handler = async (event: APIGatewayProxyEvent) => {
 
     const { pk, sk, ...responseData } = board;
 
-    return formatJSONResponse({
-      body: responseData,
+    const ideas = await dynamo.query<IdeaRecord>({
+      tableName,
+      index: 'index1',
+      pkValue: `idea-${boardId}`,
+      pkKey: 'pk',
     });
+
+    const ideaDataArray = ideas.map(({ pk, sk, boardId, ...ideaData }) => ideaData);
+
+    return formatJSONResponse({
+      body: {
+        ...responseData,
+        ideas: ideaDataArray,
+      },
+    });
+    
   } catch (error) {
     return formatJSONResponse({ statusCode: 500, body: error.message });
   }
