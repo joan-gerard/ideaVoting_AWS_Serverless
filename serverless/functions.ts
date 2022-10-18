@@ -22,6 +22,7 @@ const functions: AWS['functions'] = {
           method: 'post',
           path: '/boards',
           authorizer,
+          cors: true,
         },
       },
     ],
@@ -33,6 +34,18 @@ const functions: AWS['functions'] = {
         http: {
           method: 'get',
           path: '/boards',
+          // authorizer,
+        },
+      },
+    ],
+  },
+  getPrivateBoards: {
+    handler: 'src/functions/getPrivateBoards/index.handler',
+    events: [
+      {
+        http: {
+          method: 'get',
+          path: 'private-boards',
           // authorizer,
         },
       },
@@ -58,6 +71,7 @@ const functions: AWS['functions'] = {
           method: 'post',
           path: '/ideas',
           authorizer,
+          cors: true,
         },
       },
     ],
@@ -70,6 +84,7 @@ const functions: AWS['functions'] = {
           method: 'post',
           path: '/ideas/{ideaId}',
           authorizer,
+          cors: true,
         },
       },
     ],
