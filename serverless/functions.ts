@@ -63,6 +63,19 @@ const functions: AWS['functions'] = {
       },
     ],
   },
+  deleteBoard: {
+    handler: 'src/functions/deleteBoard/index.handler',
+    events: [
+      {
+        http: {
+          method: 'delete',
+          path: '/boards/{boardId}',
+          authorizer,
+          cors: true,
+        },
+      },
+    ],
+  },
   createIdea: {
     handler: 'src/functions/createIdea/index.handler',
     events: [

@@ -10,7 +10,7 @@ export const handler = async () => {
       index: 'index1',
       pkKey: 'pk',
       pkValue: 'board',
-      limit: 10,
+      // limit: 10,
     });
 
     const responseData = boards

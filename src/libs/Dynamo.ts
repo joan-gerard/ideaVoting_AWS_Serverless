@@ -92,14 +92,8 @@ const Dynamo = {
       Key: {
         [pkKey]: pkValue,
       },
-      ExpressionAttributeNames: {
-        '#pkKey': pkKey,
-      },
-      ExpressionAttributeValues: {
-        ':pkValue': pkValue,
-      },
-      ConditionExpression: `#pkKey = :pkValue`,
     };
+
     if (skKey && skValue) {
       params.Key[skKey] = skValue;
     }
