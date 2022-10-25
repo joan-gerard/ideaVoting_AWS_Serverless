@@ -18,7 +18,7 @@ export const handler = async (event: APIGatewayProxyEvent) => {
     const { name, description, isPublic = false } = body as CreateBoardBody;
 
     const data: BoardRecord = {
-      id: uuid(),
+      id: uuid().slice(0, 8),
       pk: 'board',
       sk: Date.now().toString(),
 
